@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Терминал выдачи МХ</title>
-  
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Терминал МХ">
-  
-  <style>
-    html, body {
-      margin: 0; padding: 0; width: 100%; height: 100%;
-      overflow: hidden; background-color: #f6f6f9;
-    }
-    iframe {
-      width: 100%; height: 100%; border: none;
-      display: block; margin: 0; padding: 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Терминал Выдачи MX</title>
 
-  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogItCi0LXRgNC80LjQvdCw0Lsg0LLRi9C00LDRh9C4INCc0VgiLAogICJzaG9ydF9uYW1lIjogItCi0LXRgNC80LjQvdCw0Lsg0Cc0VgiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2Y2ZjZmOSIsCiAgInRoZW1lX2NvbG9yIjogIiM0ODExNzMiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdC1wcmltYXJ5Igp9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        /* Сбрасываем все стандартные отступы браузера */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000; /* Черный фон на время загрузки */
+        }
+
+        /* Контейнер для полноэкранного отображения твоего скрипта */
+        .terminal-frame-container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
-  <iframe src="https://script.google.com/macros/s/AKfycbw4OMjEEskdQQdG7b8CdTgcowaEyhmgMSYZx46NlI8GtHkhvTXy0esUKS6ivWFnag/exec"></iframe>
+    <div class="terminal-frame-container">
+        <iframe src="https://script.google.com/macros/s/AKfycbw4OMjEEskdQQdG7b8CdTgcowaEyhmgMSYZx46NlI8GtHkhvTXy0esUKS6ivWFnag/exec"></iframe>
+    </div>
 
-  <script>
-    // Активируем фоновый процесс (Service Worker) прямо "на лету"
-    const swCode = `
-      self.addEventListener('install', e => self.skipWaiting());
-      self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-      self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
-    `;
-    
-    if ('serviceWorker' in navigator) {
-      const blob = new Blob([swCode], { type: 'text/javascript' });
-      const swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl, { scope: './' })
-        .then(() => console.log('PWA оболочка запущена!'))
-        .catch(err => console.error(err));
-    }
-  </script>
 </body>
 </html>
